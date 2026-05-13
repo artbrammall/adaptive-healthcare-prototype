@@ -31,12 +31,12 @@ const simulatorButtons: SimulationAction[] = [
 ];
 
 const actionEffects: Record<SimulationAction, number> = {
-    "Ignore Reminder": -10,
-    "Open Health Article": 8,
-    "Start Booking": 12,
-    "Abandon Booking": -15,
-    "Complete Daily Tracking": 10,
-    "Book Appointment": 20,
+    "Ignore Reminder": -6,
+    "Open Health Article": 5,
+    "Start Booking": 8,
+    "Abandon Booking": -10,
+    "Complete Daily Tracking": 6,
+    "Book Appointment": 12,
 };
 
 function getReadinessState(score: number): ReadinessState {
@@ -94,7 +94,7 @@ function getStrategy(state: ReadinessState) {
 
     return {
         tone: "Clear, direct, action focused",
-        message: "“Appointments available tomorrow afternoon. Would you like to book one?",
+        message: "Appointments available tomorrow afternoon. Would you like to book one?",
         explanation:
             "The system is detecting strong follow through signals, such as booking activity or consistent engagement. The strategy now reduces friction and gives Sarah clear next steps while motivation is high.",
     };
@@ -263,22 +263,25 @@ export default function ProfilePage() {
     const visibleTimelineEvents = timelineEvents.slice(-7);
 
     function handleSimulation(action: SimulationAction) {
-        const nextScore = Math.max(0, Math.min(100, score + actionEffects[action]));
-        const nextReadiness = getReadinessState(nextScore);
+        setTimelineEvents((currentEvents) => {
+            const currentScore = currentEvents[currentEvents.length - 1].score;
+            const nextScore = Math.max(0, Math.min(100, currentScore + actionEffects[action]));
+            const nextReadiness = getReadinessState(nextScore);
 
-        setScore(nextScore);
+            setScore(nextScore);
 
-        setTimelineEvents((currentEvents) => [
-            ...currentEvents,
-            {
-                id: currentEvents.length,
-                label: action,
-                impact: actionEffects[action],
-                time: "Just now",
-                score: nextScore,
-                readiness: nextReadiness,
-            },
-        ]);
+            return [
+                ...currentEvents,
+                {
+                    id: currentEvents.length,
+                    label: action,
+                    impact: actionEffects[action],
+                    time: "Just now",
+                    score: nextScore,
+                    readiness: nextReadiness,
+                },
+            ];
+        });
     }
 
     return (
