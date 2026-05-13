@@ -85,7 +85,7 @@ function getStrategy(state: ReadinessState) {
 
     if (state === "Ambivalent") {
         return {
-            tone: "Reflective, exploratory, autonomy supportive",
+            tone: "Reflective, calm, exploratory",
             message: "What would make this easier to follow through with right now?",
             explanation:
                 "The system is detecting mixed signals. Sarah is showing interest, but her behaviour suggests hesitation before committing. The strategy is to support reflection rather than push for immediate action.",
@@ -293,43 +293,43 @@ export default function ProfilePage() {
                             Backend Readiness Classification Visualiser
                         </p>
 
-                        <h1 className="text-3xl font-bold">Sarah Chen</h1>
+                        <h1 className="text-[2rem] font-bold">Sarah Chen</h1>
 
-                        <p className="text-sm text-slate-600">
+                        <p className="text-[15px] text-slate-600">
                             This visualises how a backend system classifies fictional users from behavioural patterns, not a real healthcare app or record.
                         </p>
                     </div>
                 </div>
 
-                <div className="mb-3 grid h-[72px] gap-3 md:grid-cols-4">
-                    <div className={`rounded-2xl border px-3 py-2 shadow-sm transition ${theme.panel}`}>
-                        <p className="text-[11px] text-slate-500">Current State</p>
-                        <p className={`mt-0.5 text-lg font-semibold ${theme.accent}`}>
+                <div className={`mb-3 grid h-[72px] overflow-hidden rounded-2xl border shadow-sm transition ${theme.panel} md:grid-cols-4`}>
+                    <div className="border-b border-slate-200/70 px-4 py-2.5 md:border-b-0 md:border-r">
+                        <p className="text-[11.5px] text-slate-500">Current State</p>
+                        <p className={`mt-0.5 text-xl font-semibold ${theme.accent}`}>
                             {readinessState}
                         </p>
                     </div>
 
-                    <div className={`rounded-2xl border px-3 py-2 shadow-sm transition ${theme.panel}`}>
-                        <p className="text-[11px] text-slate-500">Readiness Score</p>
-                        <p className={`mt-0.5 text-lg font-semibold ${theme.accent}`}>{score}/100</p>
+                    <div className="border-b border-slate-200/70 px-4 py-2.5 md:border-b-0 md:border-r">
+                        <p className="text-[11.5px] text-slate-500">Readiness Score</p>
+                        <p className={`mt-0.5 text-xl font-semibold ${theme.accent}`}>{score}/100</p>
                     </div>
 
-                    <div className={`rounded-2xl border px-3 py-2 shadow-sm transition ${theme.panel}`}>
-                        <p className="text-[11px] text-slate-500">Confidence</p>
-                        <p className={`mt-0.5 text-lg font-semibold ${theme.accent}`}>{confidence}%</p>
+                    <div className="border-b border-slate-200/70 px-4 py-2.5 md:border-b-0 md:border-r">
+                        <p className="text-[11.5px] text-slate-500">Confidence</p>
+                        <p className={`mt-0.5 text-xl font-semibold ${theme.accent}`}>{confidence}%</p>
                     </div>
 
-                    <div className={`rounded-2xl border px-3 py-2 shadow-sm transition ${theme.panel}`}>
-                        <p className="text-[11px] text-slate-500">Last Activity</p>
-                        <p className="mt-0.5 truncate text-sm font-semibold">
+                    <div className="px-4 py-2.5">
+                        <p className="text-[11.5px] text-slate-500">Last Activity</p>
+                        <p className="mt-0.5 truncate text-[15px] font-semibold">
                             {timelineEvents[timelineEvents.length - 1].label}
                         </p>
                     </div>
                 </div>
 
-                <div className="grid h-[calc(100vh-176px)] min-h-0 gap-3 lg:grid-cols-[0.78fr_1.95fr_0.82fr]">
-                    <aside className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
-                        <h2 className="mb-3 text-lg font-semibold">Input User Context</h2>
+                <div className="grid h-[calc(100vh-176px)] min-h-0 gap-3 lg:grid-cols-[0.66fr_1.95fr_1.05fr]">
+                    <aside className={`flex min-h-0 flex-col overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
+                        <h2 className="mb-3 text-xl font-semibold">Input User Context</h2>
 
                         <div className="space-y-3 text-sm">
                             <div>
@@ -354,23 +354,23 @@ export default function ProfilePage() {
 
                         </div>
 
-                        <div className="mt-4 border-t border-slate-200 pt-4">
-                            <h2 className="mb-2 text-lg font-semibold">Consent Controls</h2>
+                        <div className="mt-5 border-t border-slate-200 pt-4">
+                            <h2 className="mb-2 text-base font-semibold text-slate-600">Consent Controls</h2>
 
-                            <div className="space-y-2 text-xs">
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                            <div className="space-y-2 text-xs text-slate-500">
+                                <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-2">
                                     <span>Adaptive Personalisation</span>
-                                    <span className={`font-medium ${theme.accent}`}>On</span>
+                                    <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-600">On</span>
                                 </div>
 
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                                <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-2">
                                     <span>Behaviour Signal Inputs</span>
-                                    <span className={`font-medium ${theme.accent}`}>On</span>
+                                    <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-600">On</span>
                                 </div>
 
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                                <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-2">
                                     <span>User Override</span>
-                                    <span className={`font-medium ${theme.accent}`}>Available</span>
+                                    <span className="rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-600">Available</span>
                                 </div>
                             </div>
                         </div>
@@ -379,7 +379,7 @@ export default function ProfilePage() {
                     <section className={`flex min-h-0 flex-col rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
                         <div className="mb-3 flex h-[45px] shrink-0 items-center justify-between">
                             <div>
-                                <h2 className="text-lg font-semibold">Motivational Readiness Timeline</h2>
+                                <h2 className="text-xl font-semibold">Motivational Readiness Timeline</h2>
                                 <p className="text-xs text-slate-500">Time vs behavioural readiness</p>
                             </div>
 
@@ -537,35 +537,40 @@ export default function ProfilePage() {
                         </div>
                     </section>
 
-                    <aside className="grid h-full min-h-0 grid-rows-[0.9fr_1fr_1fr] gap-3 overflow-hidden">
-                        <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
-                            <h2 className="mb-2 text-lg font-semibold">Communication Strategy Output</h2>
+                    <aside className={`flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
+                        <div className="h-[38px] shrink-0 border-b border-slate-200/70">
+                            <h2 className="text-xl font-semibold">Adaptive Output</h2>
+                            <p className="text-xs text-slate-500">Strategy, notification preview, and explainability</p>
+                        </div>
+
+                        <div className="h-[122px] shrink-0 overflow-hidden border-b border-slate-200/70 py-3">
+                            <h3 className="mb-2 text-base font-semibold text-slate-600">Communication Strategy</h3>
 
                             <p className={`mb-2 text-xs font-medium ${theme.accent}`}>
                                 {strategy.tone}
                             </p>
 
-                            <p className="text-sm leading-5 text-slate-600">
+                            <p className="text-[15px] leading-6 text-slate-600">
                                 “{strategy.message}”
                             </p>
                         </div>
 
-                        <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
-                            <h2 className="mb-2 text-lg font-semibold">Example App Notification UI</h2>
+                        <div className="h-[205px] shrink-0 overflow-hidden border-b border-slate-200/70 py-3">
+                            <h3 className="mb-2 text-base font-semibold text-slate-600">Example Notification</h3>
 
-                            <div className="flex h-[calc(100%-34px)] items-center justify-center overflow-hidden">
+                            <div className="flex h-[calc(100%-30px)] items-center justify-center overflow-hidden">
                                 <img
                                     src={notificationImage}
                                     alt={`${readinessState} notification preview`}
-                                    className="w-full max-w-none rounded-2xl object-contain shadow-md"
+                                    className="w-[100%] max-w-none rounded-2xl object-contain shadow-md"
                                 />
                             </div>
                         </div>
 
-                        <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
-                            <h2 className="mb-2 text-lg font-semibold">Decision Explanation</h2>
+                        <div className="min-h-0 flex-1 overflow-hidden pt-3">
+                            <h3 className="mb-2 text-base font-semibold text-slate-600">Decision Explanation</h3>
 
-                            <p className="text-xs leading-5 text-slate-600">
+                            <p className="text-[13px] leading-5 text-slate-600">
                                 {strategy.explanation}
                             </p>
                         </div>
