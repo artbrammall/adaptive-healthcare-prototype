@@ -45,6 +45,12 @@ function getReadinessState(score: number): ReadinessState {
     return "Action Ready";
 }
 
+function getNotificationImage(state: ReadinessState) {
+    if (state === "Disengaged") return "/notifications/disengaged.png";
+    if (state === "Ambivalent") return "/notifications/ambivalent.png";
+    return "/notifications/action-ready.png";
+}
+
 function getConfidence(score: number) {
     const clampedScore = Math.max(0, Math.min(100, score));
 
@@ -70,27 +76,27 @@ function getConfidence(score: number) {
 function getStrategy(state: ReadinessState) {
     if (state === "Disengaged") {
         return {
-            tone: "Calm and low pressure",
-            message: "No pressure. Small steps are completely okay.",
+            tone: "Supportive, calm, low pressure",
+            message: "No pressure. A small first step is enough for now.",
             explanation:
-                "Recent behaviour suggests lower engagement, so the system reduces urgency and uses supportive messaging.",
+                "The system is detecting lower recent engagement, including missed or ignored actions. Rather than increasing pressure, it shifts to calm support designed to rebuild trust and reduce avoidance.",
         };
     }
 
     if (state === "Ambivalent") {
         return {
-            tone: "Reflective and supportive",
-            message: "What would make this easier right now?",
+            tone: "Reflective, exploratory, autonomy supportive",
+            message: "What would make this easier to follow through with right now?",
             explanation:
-                "Recent engagement suggests interest, but some hesitation remains. The system uses reflective prompts instead of pressure.",
+                "The system is detecting mixed signals. Sarah is showing interest, but her behaviour suggests hesitation before committing. The strategy is to support reflection rather than push for immediate action.",
         };
     }
 
     return {
-        tone: "Direct and action focused",
-        message: "Appointments are available tomorrow afternoon.",
+        tone: "Clear, direct, action focused",
+        message: "“Appointments available tomorrow afternoon. Would you like to book one?",
         explanation:
-            "Recent behaviour suggests readiness to act, so the system reduces friction and offers clear next steps.",
+            "The system is detecting strong follow through signals, such as booking activity or consistent engagement. The strategy now reduces friction and gives Sarah clear next steps while motivation is high.",
     };
 }
 
@@ -253,6 +259,7 @@ export default function ProfilePage() {
     const confidence = getConfidence(score);
     const strategy = getStrategy(readinessState);
     const theme = getAdaptiveTheme(readinessState);
+    const notificationImage = getNotificationImage(readinessState);
     const visibleTimelineEvents = timelineEvents.slice(-7);
 
     function handleSimulation(action: SimulationAction) {
@@ -317,8 +324,8 @@ export default function ProfilePage() {
                     </div>
                 </div>
 
-                <div className="grid h-[calc(100vh-176px)] min-h-0 gap-3 lg:grid-cols-[0.9fr_1.7fr_1fr]">
-                    <aside className={`rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
+                <div className="grid h-[calc(100vh-176px)] min-h-0 gap-3 lg:grid-cols-[0.78fr_1.95fr_0.82fr]">
+                    <aside className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
                         <h2 className="mb-3 text-lg font-semibold">Input User Context</h2>
 
                         <div className="space-y-3 text-sm">
@@ -342,11 +349,26 @@ export default function ProfilePage() {
                                 <p className="font-medium">{strategy.tone}</p>
                             </div>
 
-                            <div>
-                                <p className="text-slate-500">Active Signals</p>
-                                <p className="font-medium">
-                                    App opens, booking attempts, article engagement
-                                </p>
+                        </div>
+
+                        <div className="mt-4 border-t border-slate-200 pt-4">
+                            <h2 className="mb-2 text-lg font-semibold">Consent Controls</h2>
+
+                            <div className="space-y-2 text-xs">
+                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                                    <span>Adaptive Personalisation</span>
+                                    <span className={`font-medium ${theme.accent}`}>On</span>
+                                </div>
+
+                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                                    <span>Behaviour Signal Inputs</span>
+                                    <span className={`font-medium ${theme.accent}`}>On</span>
+                                </div>
+
+                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
+                                    <span>User Override</span>
+                                    <span className={`font-medium ${theme.accent}`}>Available</span>
+                                </div>
                             </div>
                         </div>
                     </aside>
@@ -512,7 +534,7 @@ export default function ProfilePage() {
                         </div>
                     </section>
 
-                    <aside className="grid h-full min-h-0 grid-rows-[1fr_1fr_1fr] gap-3 overflow-hidden">
+                    <aside className="grid h-full min-h-0 grid-rows-[0.9fr_1fr_1fr] gap-3 overflow-hidden">
                         <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
                             <h2 className="mb-2 text-lg font-semibold">Communication Strategy Output</h2>
 
@@ -526,32 +548,23 @@ export default function ProfilePage() {
                         </div>
 
                         <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
+                            <h2 className="mb-2 text-lg font-semibold">Example App Notification UI</h2>
+
+                            <div className="flex h-[calc(100%-34px)] items-center justify-center overflow-hidden">
+                                <img
+                                    src={notificationImage}
+                                    alt={`${readinessState} notification preview`}
+                                    className="w-full max-w-none rounded-2xl object-contain shadow-md"
+                                />
+                            </div>
+                        </div>
+
+                        <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
                             <h2 className="mb-2 text-lg font-semibold">Decision Explanation</h2>
 
                             <p className="text-xs leading-5 text-slate-600">
                                 {strategy.explanation}
                             </p>
-                        </div>
-
-                        <div className={`overflow-hidden rounded-3xl border p-3 shadow-sm transition ${theme.panel}`}>
-                            <h2 className="mb-2 text-lg font-semibold">Consent Controls</h2>
-
-                            <div className="space-y-2 text-xs">
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
-                                    <span>Adaptive Personalisation</span>
-                                    <span className={`font-medium ${theme.accent}`}>On</span>
-                                </div>
-
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
-                                    <span>Behaviour Signal Inputs</span>
-                                    <span className={`font-medium ${theme.accent}`}>On</span>
-                                </div>
-
-                                <div className={`flex items-center justify-between rounded-xl p-2 ${theme.softPanel}`}>
-                                    <span>User Override</span>
-                                    <span className={`font-medium ${theme.accent}`}>Available</span>
-                                </div>
-                            </div>
                         </div>
                     </aside>
                 </div>
