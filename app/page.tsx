@@ -88,7 +88,7 @@ function getStrategy(state: ReadinessState) {
             tone: "Reflective, calm, exploratory",
             message: "What would make this easier to follow through with right now?",
             explanation:
-                "The system is detecting mixed signals. Sarah is showing interest, but her behaviour suggests hesitation before committing. The strategy is to support reflection rather than push for immediate action.",
+                "The system is detecting mixed signals. Taylor is showing interest, but her behaviour suggests hesitation before committing. The strategy is to support reflection rather than push for immediate action.",
         };
     }
 
@@ -96,7 +96,7 @@ function getStrategy(state: ReadinessState) {
         tone: "Clear, direct, action focused",
         message: "Appointments available tomorrow afternoon. Would you like to book one?",
         explanation:
-            "The system is detecting strong follow through signals, such as booking activity or consistent engagement. The strategy now reduces friction and gives Sarah clear next steps while motivation is high.",
+            "The system is detecting strong follow through signals, such as booking activity or consistent engagement. The strategy now reduces friction and gives Taylor clear next steps while motivation is high.",
     };
 }
 
@@ -293,7 +293,7 @@ export default function ProfilePage() {
                             Backend Readiness Classification Visualiser
                         </p>
 
-                        <h1 className="text-[2rem] font-bold">Sarah Chen</h1>
+                        <h1 className="text-[2rem] font-bold">Taylor Bennett</h1>
 
                         <p className="text-[15px] text-slate-600">
                             This visualises how a backend system classifies fictional users from behavioural patterns, not a real healthcare app or record.
@@ -334,7 +334,7 @@ export default function ProfilePage() {
                         <div className="space-y-3 text-sm">
                             <div>
                                 <p className="text-slate-500">Subject ID</p>
-                                <p className="font-medium">Sarah Chen, synthetic profile</p>
+                                <p className="font-medium">Taylor Bennett, synthetic profile</p>
                             </div>
 
                             <div>
